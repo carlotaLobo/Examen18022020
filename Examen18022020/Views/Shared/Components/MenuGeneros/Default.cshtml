@@ -1,0 +1,37 @@
+﻿@model List<Genero>
+
+@{
+    List<Cesta> cesta = Context.Session.GetObject<List<Cesta>>("CESTA");
+
+    int precio = 0;
+
+    if (cesta != null)
+    {
+
+        @foreach (Cesta c in cesta)
+        {
+           precio += c.Precio;
+        }
+
+    }
+}
+
+<ul class="list-group">
+    @foreach (Genero g in Model)
+    {
+        <li class="list-group-item">
+            <a asp-action="Index" asp-controller="Home" asp-route-id="@g.Id">@g.Generos</a>
+        </li>
+    }
+
+</ul>
+<div>
+
+    @if(cesta != null)
+    {
+    <h4>Precio: @precio €</h4> 
+    <h4>Cantidad:  @cesta.AsEnumerable().Count()</h4>
+    }
+
+    <a asp-action="comprar" asp-controller="home" class="btn btn-success">Comprar</a>
+</div>

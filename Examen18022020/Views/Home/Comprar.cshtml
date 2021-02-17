@@ -1,0 +1,25 @@
+﻿@{
+    List<Cesta> cesta = Context.Session.GetObject<List<Cesta>>("CESTA");
+    int total = 0;
+
+}
+
+
+
+
+@if (cesta != null)
+{<div class="m-5">
+        <h3>Comprar</h3>
+        @foreach (Cesta c in cesta)
+        {
+            <div class="my-4"><h4>@c.IdPelicula</h4> <h4>@c.Precio €</h4></div>
+
+            total += c.Precio;
+        }
+        <h4>Total: @total</h4>
+    </div>
+    <a asp-action="eliminaCesta" asp-controller="Home" class="btn btn-danger">Confirmar compra</a>
+}
+
+
+<h1 style="margin-top:150px; color:red;">@TempData["message"] </h1>

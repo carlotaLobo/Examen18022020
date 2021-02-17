@@ -1,0 +1,55 @@
+﻿@model List<Pelicula>
+@{
+    int numeropagina = 1;
+    int registros = (int)ViewData["NUMEROREGISTROS"];
+    int genero = default(int);
+    if (ViewBag.genero != null)
+    {
+        genero = ViewBag.genero;
+    }
+
+}
+<h1>Peliculas</h1>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Imagen</th>
+            <th>--</th>
+        </tr>
+    </thead>
+    <tbody>
+       
+        @foreach (Pelicula p in Model)
+        {
+            <tr>
+                <td>@p.Titulo</td>
+                <td>
+                    <img style="width:150px" src="~/images/@p.Foto" />
+                </td>
+                <td><a asp-action="detalles" asp-controller="home" asp-route-id="@p.Id">Ver detalles</a></td>
+            </tr>
+        }
+
+    </tbody>
+
+
+</table>
+
+<ul class="pagination">
+
+    @for (int i = 1; i <= registros; i += 3)
+    {
+        <li class="page-item">
+            <a class="page-link" style="color:black" asp-controller="Home" asp-action="index" asp-route-posicion="@i"
+               asp-route-genero="@genero"> @numeropagina </a>
+        </li>
+        numeropagina += 1;
+    }
+
+
+
+</ul>
+
